@@ -38,7 +38,7 @@ jobs:
           chmod u+x ./kustomize
       - name: Deploy 
         run: |-
-          ./kustomize edit set image eu.gcr.io/${{ secrets.GCLOUD_PROJECT }}/IMAGE:TAG=eu.gcr.io/${{ secrets.GCLOUD_PROJECT }}/${{ secrets.GCLOUD_APP_NAME }}
+          ./kustomize edit set image eu.gcr.io/${{ kwetter-274507 }}/IMAGE:TAG=eu.gcr.io/${{ kwetter-274507 }}/${{ kwetter }}
           ./kustomize build . | kubectl apply -f -
-          kubectl rollout status deployment/${{ secrets.GCLOUD_APP_NAME }}
+          kubectl rollout status deployment/${{ kwetter }}
           kubectl get services -o wide
