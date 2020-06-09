@@ -40,5 +40,5 @@ jobs:
         run: |-
           ./kustomize edit set image eu.gcr.io/kwetter-274507/IMAGE:TAG=eu.gcr.io/kwetter-274507/kwetter
           ./kustomize build . | kubectl apply -f -
-          kubectl rollout status deployment/${{ kwetter }}
+          kubectl rollout status deployment/kwetter
           kubectl get services -o wide
