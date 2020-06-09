@@ -1,24 +1,41 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect } from "react";
+import NavBar from "./components/NavBar";
+import { Router, Route, Switch } from "react-router-dom";
+import Profile from "./components/Profile";
+import history from "./utils/history";
+import PrivateRoute from "./components/PrivateRoute";
+import KweetApi from "./views/KweetApi";
+import UserApi from "./views/UserApi";
+import PostKweet from "./views/PostKweet";
+import DeleteKweet from "./views/DeleteKweet";
+import PostKweetTest from "./views/PostKweetTest";
+import DeleteUser from "./views/DeleteUser";
+
+
+
+
+
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="App" >
+      {/* Don't forget to include the history module */}
+      <Router history={history}>
+        <header>
+          <NavBar />
+        </header>
+        <Switch>
+          <Route path="/" exact />
+          <PrivateRoute path="/profile" component={Profile} />
+          <PrivateRoute path="/kweet-api" component={KweetApi} />
+          <PrivateRoute path="/user-api" component={UserApi} />
+          <PrivateRoute path="/post-kweet" component={PostKweetTest} />
+          <PrivateRoute path="/delete-kweet" component={DeleteKweet} />
+          <PrivateRoute path="/delete-user" component={DeleteUser} />
+          {/*   */}
+
+        </Switch>
+      </Router>
     </div>
   );
 }
