@@ -1,7 +1,7 @@
 apiVersion: apps/v1beta1
 kind: Deployment
 metadata:
-  name: frontend
+  name: kwetter
 spec:
   replicas: 1
   strategy:
@@ -12,10 +12,10 @@ spec:
   template:
     metadata:
       labels:
-        app: frontend
+        app: kwetter
     spec:
       containers:
-      - name: frontend
+      - name: kwetter
         image: eu.gcr.io/kwetter-274507/kwetter:latest
         ports:
         - containerPort: 3000
