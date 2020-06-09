@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: frontend
-        image: eu.gcr.io/kwetter-274507/kwetter
+        image: eu.gcr.io/kwetter-274507/kwetter:latest
         ports:
         - containerPort: 3000
         resources:
