@@ -14,14 +14,14 @@ jobs:
 
       - name: Build Docker image
         run: |-
-          docker build --tag "eu.gcr.io/${{ secrets.GCLOUD_PROJECT }}/${{ secrets.GCLOUD_APP_NAME }}:latest"  ./
+          docker build --tag "eu.gcr.io/kwetter-274507/kwetter:latest"  ./
       - name: Authenticate into Google Cloud Platform
         uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
         with:
           version: '286.0.0'
           service_account_email: ${{ secrets.GCLOUD_EMAIL }}
           service_account_key: ${{ secrets.GCLOUD_AUTH }}
-          project_id: ${{ secrets.GCLOUD_PROJECT }}
+          project_id: kwetter-274507
 
       - name: Configure Docker to use Google Cloud Platform
         run: "gcloud auth configure-docker --quiet"
@@ -29,7 +29,7 @@ jobs:
             gcloud container clusters  get-credentials ${{ secrets.GCLOUD_CLUSTER }} --zone ${{ secrets.GCLOUD_ZONE }}
             
       - name: Push image to Google Cloud Container Registry
-        run: "docker push eu.gcr.io/${{ secrets.GCLOUD_PROJECT }}/${{ secrets.GCLOUD_APP_NAME }}:latest"
+        run: "docker push eu.gcr.io/kwetter-274507/kwetter:latest"
      
      
       - name: Set up Kustomize
@@ -38,7 +38,7 @@ jobs:
           chmod u+x ./kustomize
       - name: Deploy 
         run: |-
-          ./kustomize edit set image eu.gcr.io/${{ secrets.GCLOUD_PROJECT }}/IMAGE:TAG=eu.gcr.io/${{ secrets.GCLOUD_PROJECT }}/${{ secrets.GCLOUD_APP_NAME }}:latest
+          ./kustomize edit set image eu.gcr.io/kwetter-274507/IMAGE:TAG=eu.gcr.io/kwetter-274507/kwetter:latest
           ./kustomize build . | kubectl apply -f -
           kubectl rollout status deployment/kwetter
           kubectl get services -o wide
