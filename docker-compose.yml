@@ -1,7 +1,5 @@
-version: '3'
+version: "3"
 services:
   kwetter:
-  stdin_open: true
-    build: ./
-    ports:
-      - "3000:3000"
+    stdin_open: true # docker run -i
+    tty: true        # docker run -t
