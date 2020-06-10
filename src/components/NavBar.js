@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useEffect } from "react";
 import { useAuth0 } from "../react-auth0-spa";
 import { Link } from "react-router-dom";
 import axios from 'axios';
@@ -8,7 +8,6 @@ const NavBar = () => {
   const { getIdTokenClaims } = useAuth0();
 
   const PostNewUser = async () => {
-  
     const idToken = await getIdTokenClaims();
   
     const userstate = {
@@ -29,7 +28,7 @@ const NavBar = () => {
     .then(res => {
         console.log("IDToken: " + idToken.name + " | response name: " + res.data.username)
         //Check if username is still the same as last time
-        if(res.data.username == idToken.name)
+        if(res.data.username === idToken.name)
         {
           console.log("Username hasn't changed");
         }

@@ -1,13 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import { useAuth0 } from "../react-auth0-spa";
-import  userRepository from "../components/api/userRepository";
 import axios from 'axios';
 
 
 const PostKweetTest = () => {
-  const [showResult, setShowResult] = useState(false);
-  const [apiMessage, setApiMessage] = useState("");
-  const { getTokenSilently } = useAuth0();
+
   const { getIdTokenClaims } = useAuth0();
   
 
@@ -48,14 +45,7 @@ const PostKweetTest = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    const user = {
-        id: userstate.id,
-        username: userstate.username,
-        email: userstate.email,
-        bio: userstate.bio,
-        location: userstate.location,
-        createdAt: userstate.createdAt
-    };
+   
     const kweet = {
       userid: kweetstate.userid,
       username: kweetstate.username,
@@ -63,11 +53,7 @@ const PostKweetTest = () => {
       created: kweetstate.created,
     };
 
-    axios.get(`http://localhost:7000/user-api/user/` + userstate.id)
-    .then(res => {
-        console.log("User already exists")
-    })
-   
+ 
     
     axios.post(`http://localhost:7000/kweet-api/kweet`, kweet).then((res) => {
       console.log(res);

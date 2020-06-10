@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import NavBar from "./components/NavBar";
 import { Router, Route, Switch } from "react-router-dom";
 import Profile from "./components/Profile";
@@ -6,7 +6,6 @@ import history from "./utils/history";
 import PrivateRoute from "./components/PrivateRoute";
 import KweetApi from "./views/KweetApi";
 import UserApi from "./views/UserApi";
-import PostKweet from "./views/PostKweet";
 import DeleteKweet from "./views/DeleteKweet";
 import PostKweetTest from "./views/PostKweetTest";
 import DeleteUser from "./views/DeleteUser";
