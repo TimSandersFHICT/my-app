@@ -22,4 +22,3 @@ spec:
       targetPort: 3000
   selector:
     app: frontend
-    stdin_open: true
