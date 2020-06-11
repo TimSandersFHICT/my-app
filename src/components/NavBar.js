@@ -24,9 +24,13 @@ const NavBar = () => {
     userstate.username = idToken.name;
     userstate.location = idToken.locale;
     userstate.createdAt = Date.UTC;
-    axios.get(`http://localhost:7000/user-api/user/` + userstate.id)
+    axios.get(`http://localhost:7000/user-api/user/` + userstate.id, {
+      headers: {
+        'Authorization': `Bearer ${idToken.__raw}`
+      }
+    })
     .then(res => {
-        console.log("IDToken: " + idToken.name + " | response name: " + res.data.username)
+        //console.log("IDToken: " + idToken.name + " | response name: " + res.data.username)
         //Check if username is still the same as last time
         if(res.data.username === idToken.name)
         {
@@ -35,11 +39,19 @@ const NavBar = () => {
         else{
           console.log("Username has changed");
           userstate.username = idToken.name;
-          axios.put(`http://localhost:7000/user-api/user/` + userstate.id, userstate)
+          axios.put(`http://localhost:7000/user-api/user/` + userstate.id, userstate, {
+            headers: {
+              'Authorization': `Bearer ${idToken.__raw}`
+            }
+          })
         }
     })
     .catch(res => {
-        axios.post(`http://localhost:7000/user-api/user`, userstate).then((res) => {
+        axios.post(`http://localhost:7000/user-api/user`, userstate, {
+          headers: {
+            'Authorization': `Bearer ${idToken.__raw}`
+          }
+        }).then((res) => {
             console.log(res);
             console.log(res.data);
           });

@@ -6,7 +6,7 @@ import axios from 'axios';
 const PostKweetTest = () => {
 
   const { getIdTokenClaims } = useAuth0();
-  
+  var idTokenRaw = "";
 
   const kweetstate = {
     userid: "",
@@ -15,37 +15,16 @@ const PostKweetTest = () => {
     created: Date.now.json,
   };
 
-  const userstate = {
-    id: "",
-    username: "",
-    email: "",
-    bio: "You still need to edit your bio!",
-    location: "",
-    createdAt: ""
-  };
-
   const getUserToken = async () => { 
     const idToken = await getIdTokenClaims();
-    console.log(idToken);
+    idTokenRaw = idToken.__raw;
     kweetstate.userid = idToken.sub;
     kweetstate.username = idToken.name;
   }
 
-  const setUserState = async () => {
-    const idToken = await getIdTokenClaims();
-    userstate.email = idToken.email;
-    userstate.id = idToken.sub;
-    userstate.username = idToken.name;
-    userstate.location = idToken.locale;
-    userstate.createdAt = Date.now;
-  }
-
-  
-
   const handleSubmit = (event) => {
     event.preventDefault();
 
-   
     const kweet = {
       userid: kweetstate.userid,
       username: kweetstate.username,
@@ -53,9 +32,11 @@ const PostKweetTest = () => {
       created: kweetstate.created,
     };
 
- 
-    
-    axios.post(`http://localhost:7000/kweet-api/kweet`, kweet).then((res) => {
+    axios.post(`http://localhost:7000/kweet-api/kweet`, kweet,{
+      headers: {
+        'Authorization': `Bearer ${idTokenRaw}`
+      }
+    }).then((res) => {
       console.log(res);
       console.log(res.data);
     });
@@ -64,7 +45,6 @@ const PostKweetTest = () => {
   const handleChange = (event) => {
     kweetstate.text = event.target.value
     getUserToken()
-    setUserState()
   };
 
   return (

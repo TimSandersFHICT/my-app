@@ -1,36 +1,55 @@
-import React from 'react';
+import React from "react";
+import { useAuth0 } from "../react-auth0-spa";
 import axios from 'axios';
 
-export default class DeleteKweet extends React.Component {
-  state = {
-    id: '',
+
+const DeleteKweet = () => {
+
+  const { getIdTokenClaims } = useAuth0();
+  var idTokenRaw = "";
+
+  const kweetstate = {
+    id: 0,
+  };
+
+  const getUserToken = async () => { 
+    const idToken = await getIdTokenClaims();
+    idTokenRaw = idToken.__raw;
+    console.log(idTokenRaw);
   }
 
-  handleChange = event => {
-    this.setState({ id: event.target.value });
-  }
-
-  handleSubmit = event => {
+  const handleSubmit = (event) => {
     event.preventDefault();
 
-    axios.delete(`http://localhost:7000/kweet-api/kweet/${this.state.id}`)
-      .then(res => {
-        console.log(res);
-        console.log(res.data);
-      })
-  }
+    axios.delete(`http://localhost:7000/kweet-api/kweet/${kweetstate.id}`,{
+      headers: {
+        'Authorization': `Bearer ${idTokenRaw}`
+      }
+    }).then((res) => {
+      console.log(res);
+      console.log(res.data);
+    });
+  };
 
-  render() {
-    return (
+  const handleChange = (event) => {
+    kweetstate.id = event.target.value
+    console.log(kweetstate.id);
+    getUserToken()
+  };
+
+  return (
+    <>
       <div>
-        <form onSubmit={this.handleSubmit}>
+        <form onSubmit={handleSubmit}>
           <label>
-            Kweet ID:
-            <input type="text" name="id" onChange={this.handleChange} />
+            Kweet id to delete:
+            <input type="text" name="text" onChange={handleChange} />
           </label>
-          <button type="submit">Delete</button>
+          <button type="submit">Add</button>
         </form>
       </div>
-    )
-  }
-}
+    </>
+  );
+};
+
+export default DeleteKweet;

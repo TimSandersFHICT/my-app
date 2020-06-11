@@ -14,9 +14,9 @@ const KweetApi = () => {
       const idToken = await getIdTokenClaims();
 
       console.log("Id token: " + idToken.sub);
-      const response = await fetch("http://localhost:7000/kweet-api/kweet", {
+      const response = await fetch("http://localhost:7000/kweet-api/kweet",{
         headers: {
-          Authorization: `Bearer ${token}`
+          'Authorization': `Bearer ${idToken.__raw}`
         }
       });
 
