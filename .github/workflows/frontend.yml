@@ -38,7 +38,7 @@ jobs:
           chmod u+x ./kustomize
       - name: Deploy 
         run: |-
-          ./kustomize set image eu.gcr.io/kwetter-274507/IMAGE:TAG=eu.gcr.io/kwetter-274507/kwetter:latest
+          ./kustomize edit set image eu.gcr.io/kwetter-274507/IMAGE:TAG=eu.gcr.io/kwetter-274507/kwetter:latest
           ./kustomize build . | kubectl apply -f -
           kubectl rollout status deployment/kwetter
           kubectl get services -o wide
