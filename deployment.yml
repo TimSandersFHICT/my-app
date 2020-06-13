@@ -8,7 +8,7 @@ spec:
     rollingUpdate:
       maxSurge: 1
       maxUnavailable: 1
-  minReadySeconds: 100
+  minReadySeconds: 5
   template:
     metadata:
       labels:
