@@ -1,5 +1,7 @@
 FROM node:10
 
+EXPOSE 3000
+
 # Setting working directory. All the path will be relative to WORKDIR
 WORKDIR .
 
