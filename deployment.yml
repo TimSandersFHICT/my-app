@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: kwetter
-        image: eu.gcr.io/kwetter-274507/kwetter:latest
+        image: eu.gcr.io/kwetter-274507/IMAGE:TAG
         ports:
         - containerPort: 3000
         resources:
