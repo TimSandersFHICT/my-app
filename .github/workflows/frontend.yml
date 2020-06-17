@@ -4,6 +4,9 @@ on:
     branches:
       - 'master'
 
+env:
+  GITHUB_SHA: ${{ github.sha }}
+
 jobs:
   deploy:
     name: Deploy job
@@ -14,7 +17,7 @@ jobs:
 
       - name: Build Docker image
         run: |-
-          docker build --tag "eu.gcr.io/kwetter-274507/kwetter:latest"  ./
+          docker build --tag "eu.gcr.io/kwetter-274507/kwetter:$GITHUB_SHA"  ./
       - name: Authenticate into Google Cloud Platform
         uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
         with:
@@ -29,7 +32,7 @@ jobs:
             gcloud container clusters  get-credentials ${{ secrets.GCLOUD_CLUSTER }} --zone ${{ secrets.GCLOUD_ZONE }}
             
       - name: Push image to Google Cloud Container Registry
-        run: "docker push eu.gcr.io/kwetter-274507/kwetter:latest"
+        run: "docker push eu.gcr.io/kwetter-274507/kwetter:$GITHUB_SHA"
      
      
       - name: Set up Kustomize
@@ -38,7 +41,7 @@ jobs:
           chmod u+x ./kustomize
       - name: Deploy 
         run: |-
-          ./kustomize edit set image eu.gcr.io/kwetter-274507/IMAGE:TAG=eu.gcr.io/kwetter-274507/kwetter:latest
+          ./kustomize edit set image eu.gcr.io/kwetter-274507/IMAGE:TAG=eu.gcr.io/kwetter-274507/kwetter:$GITHUB_SHA
           ./kustomize build . | kubectl apply -f -
           kubectl rollout status deployment/kwetter
           kubectl get services -o wide
