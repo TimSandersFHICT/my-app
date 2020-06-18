@@ -21,7 +21,7 @@ const PostKweetTest = () => {
       created: kweetstate.created,
     };
 
-    axios.post(`http://localhost:7000/kweet-api/kweet`, kweet,
+    axios.post(window.location.origin + `/kweet-api/kweet`, kweet,
     ).then((res) => {
       console.log(res);
       console.log(res.data);

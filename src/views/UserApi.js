@@ -8,7 +8,7 @@ const UserApi = () => {
   const callApi = async () => {
     try {
 
-      const response = await fetch("http://localhost:7000/user-api/user");
+      const response = await fetch(window.location.origin + "/user-api/user");
 
       const responseData = await response.json();
 

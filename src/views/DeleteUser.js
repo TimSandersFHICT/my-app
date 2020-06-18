@@ -15,7 +15,7 @@ const DeleteUser = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    axios.delete(`http://localhost:7000/user-api/user/${userstate.id}`,
+    axios.delete(window.location.origin + `/user-api/user/${userstate.id}`,
     ).then((res) => {
       console.log(res);
       console.log(res.data);
