@@ -11,7 +11,7 @@ const DeleteKweet = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    axios.delete(window.location.origin + `/kweet-api/kweet/${kweetstate.id}`,
+    axios.delete(window.location.origin + `/api/kweet/${kweetstate.id}`,
     ).then((res) => {
       console.log(res);
       console.log(res.data);

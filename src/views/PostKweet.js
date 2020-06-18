@@ -29,7 +29,7 @@ export default class PostKweet extends React.Component {
       created: this.state.created
     };
     
-    axios.post(window.location.origin + `/kweet-api/kweet`, kweet )
+    axios.post(window.location.origin + `/api/kweet`, kweet )
       .then(res => {
         console.log(res);
         console.log(res.data);

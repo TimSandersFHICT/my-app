@@ -10,7 +10,7 @@ const KweetApi = () => {
   const callApi = async () => { 
     try {
 
-      const response = await fetch(window.location.origin + "/kweet-api/kweet");
+      const response = await fetch(window.location.origin + "/api/kweet");
 
       const responseData = await response.json();
 
