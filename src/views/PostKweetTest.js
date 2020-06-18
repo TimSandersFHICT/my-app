@@ -1,12 +1,8 @@
 import React from "react";
-import { useAuth0 } from "../react-auth0-spa";
 import axios from 'axios';
 
 
 const PostKweetTest = () => {
-
-  const { getIdTokenClaims } = useAuth0();
-  var idTokenRaw = "";
 
   const kweetstate = {
     userid: "",
@@ -14,13 +10,6 @@ const PostKweetTest = () => {
     text: "",
     created: Date.now.json,
   };
-
-  const getUserToken = async () => { 
-    const idToken = await getIdTokenClaims();
-    idTokenRaw = idToken.__raw;
-    kweetstate.userid = idToken.sub;
-    kweetstate.username = idToken.name;
-  }
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -32,11 +21,8 @@ const PostKweetTest = () => {
       created: kweetstate.created,
     };
 
-    axios.post(`http://localhost:7000/kweet-api/kweet`, kweet,{
-      headers: {
-        'Authorization': `Bearer ${idTokenRaw}`
-      }
-    }).then((res) => {
+    axios.post(`http://localhost:7000/kweet-api/kweet`, kweet,
+    ).then((res) => {
       console.log(res);
       console.log(res.data);
     });
@@ -44,7 +30,6 @@ const PostKweetTest = () => {
 
   const handleChange = (event) => {
     kweetstate.text = event.target.value
-    getUserToken()
   };
 
   return (
