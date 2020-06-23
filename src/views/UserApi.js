@@ -11,7 +11,7 @@ const UserApi = () => {
     try {
       const token = await getTokenSilently();
       const idToken = await getIdTokenClaims();
-
+ 
       const response = await fetch("http://localhost:7000/user-api/user",{
         headers: {
           'Authorization': `Bearer ${idToken.__raw}`
